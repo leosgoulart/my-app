@@ -19,11 +19,13 @@ export default function App() {
         component={Login}       
         />
       <Stack.Screen
+      options={{headerShown: false}}
         name="Register"
         component={Register}       
         />
        
         <Stack.Screen
+        options={{headerShown: false}}
         name="Home"
         component={Home}       
         />

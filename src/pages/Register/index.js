@@ -6,6 +6,7 @@ import { colors } from "../../styles";
 import { getAuth, createUserWithEmailAndPassword,  } from "firebase/auth";
 import { firebaseConfig } from "../../../firebase";
 import { initializeApp } from "firebase/app";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Register(){
 
@@ -17,6 +18,7 @@ export default function Register(){
     const app = initializeApp(firebaseConfig)
     const auth = getAuth(app);
 
+    const navigation = useNavigation()
 
     const handleCreateAccount = () => {
         createUserWithEmailAndPassword(auth,email,password)
@@ -24,7 +26,9 @@ export default function Register(){
             console.log("conta criada!")         
             const user =userCredential.user;
             console.log(user)
-            navition.na
+            Alert.alert("Conta Criada")
+            navigation.navigate("Login")
+            
         })
         .catch(error => {
             console.log(error)
@@ -73,6 +77,9 @@ export default function Register(){
             </View >
             <TouchableOpacity onPress={handleCreateAccount} style={styles.containerButtonRegister}>
                     <Text style={styles.TextButtonRegister}>CADASTRAR</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress= {() => {navigation.navigate("Login")}}>
+                    <Text style={styles.TextCadastro}>Já tem um conta? Entrar</Text>
                 </TouchableOpacity>
         </View>
     )

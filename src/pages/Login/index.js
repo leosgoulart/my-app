@@ -1,38 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {View, Text, TextInput, Image, TouchableOpacity, Alert} from 'react-native';
 import { styles } from "./styles";
 import { Feather } from '@expo/vector-icons'
 import { colors } from "../../styles";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseConfig } from "../../../firebase";
 import { initializeApp } from "firebase/app";
-import Home from "../Home";
+import { useNavigation } from "@react-navigation/native";
 
 
 
 
-
-export default function Login({navigation}){
+export default function Login(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordIsVisible, setPasswordIsVisible] = useState(false);
     
     const app = initializeApp(firebaseConfig)
     const auth = getAuth(app);
-    // const entrou = () => {
-    //     navigation.reset({
-    //         index: 0,
-    //         routes: [{name: Home}]
-    //     })
-    // }
+ 
+    const navigation = useNavigation()
+
+    // useEffect(() => {
+    //     const unsubscribe = auth.onAuthStateChanged( user => {
+    //         if (user) {
+    //             navigation.navigate("Home")
+    //         }
+    //         return unsubscribe
+    //     }, [])
+
+    // })
+
 
     const handleSignIn = () => {
+        
         signInWithEmailAndPassword(auth,email,password)
         .then((userCredential) => {
             console.log("logado!")
-            const user =userCredential.user;
+            const user =userCredential.user;         
             console.log(user)
-            entrou()
+            navigation.navigate("Home")
+            
             
         })
         .catch(error => {
@@ -83,7 +91,7 @@ export default function Login({navigation}){
                     <Text style={styles.TextButtonLogin}>ENTRAR</Text>
                 </TouchableOpacity>
                 <TouchableOpacity >
-                    <Text style={styles.TextCadastro}>Não tem conta? Cadastra-se?</Text>
+                    <Text onPress={() => navigation.navigate("Register")}style={styles.TextCadastro}>Não tem conta? Cadastra-se?</Text>
                 </TouchableOpacity>
         </View>
 

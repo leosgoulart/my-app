@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../styles";
 
+
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -48,4 +49,9 @@ export const styles = StyleSheet.create({
         color: colors.BACKGROUND,
         fontSize: 18
     },
+    TextCadastro:{
+        color: colors.BACKGROUNDINPUT,
+        fontSize: 14,
+        marginTop: 50
+    }
 })
